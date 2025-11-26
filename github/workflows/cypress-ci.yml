@@ -14,19 +14,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Node
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: "20"
+          cache: "npm"
 
       - name: Install dependencies
         run: npm install
 
       - name: Run Cypress tests (headless)
-        uses: cypress-io/github-action@v6
-        with:
-          command: npm test
+        run: npm test
 
       - name: Upload Cypress videos
         if: always()
@@ -34,6 +32,7 @@ jobs:
         with:
           name: cypress-videos
           path: cypress/videos
+          if-no-files-found: ignore
 
       - name: Upload Cypress screenshots
         if: always()
